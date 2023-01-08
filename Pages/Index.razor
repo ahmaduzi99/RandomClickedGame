@@ -9,6 +9,11 @@
         height:100px;
         font-size:50px;
     }
+    tombol{
+        width: 100px;
+        height: 100px;
+        font-size: 50px;
+    }
 
 </style>
 
@@ -28,6 +33,7 @@
                     </button>
             </div>
         }
+       
     </div>
 </div>
 
@@ -52,6 +58,7 @@
         shuffelAnimals = animals
         .OrderBy(item => random.Next())
         .ToList();
+        animalfound = 0;
     }
 
     protected override void OnInitialized()
@@ -62,6 +69,8 @@
     string ClickedAnimal = string.Empty;
 
     string clickedAnimalDescription = string.Empty;
+
+    int animalfound = 0;
 
     private void ButtonnClick(string animal , string animaldescription)
     {
@@ -76,11 +85,25 @@
             .Select(item => item.Replace(animal, string.Empty))
             .ToList();
             ClickedAnimal = string.Empty;
+
+            animalfound++;
+            if (animalfound == 8)
+            {
+                SetUpGame();
+            }
         }
         else
         {
+            
             ClickedAnimal = string.Empty;
+            
+
         }
+    }
+
+    private void resetgame()
+    {
+        
     }
 }
 
