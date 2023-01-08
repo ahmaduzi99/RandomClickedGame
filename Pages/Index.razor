@@ -1,8 +1,8 @@
 ﻿@page "/"
 
-<style>
+<style> 
     .container{
-        width : 400px;
+        width : 400px; 
     }
     button{
         width:100px;
@@ -19,7 +19,7 @@
 
 <PageTitle>where game pov</PageTitle>
 
-<div class=" container">
+<div class=" container"> 
     <div class="row">
         @for(var animalNumber =0; animalNumber < shuffelAnimals.Count;animalNumber++)
         {
@@ -38,10 +38,10 @@
 </div>
 
 @code{
-    List<string> animals = new List<string>()
+    List<string> animals = new List<string>() //Untuk mengisi array dan gambar pada game 
     {
         "🐒","🐒",
-        "🐼","🐼",
+        "🐼","🐼", 
         "🐔","🐔",
         "🦓","🦓",
         "🐇","🐇",
@@ -52,7 +52,7 @@
 
     List<string> shuffelAnimals = new List<string>();
 
-    private void SetUpGame()
+    private void SetUpGame() //setup game sebagai control dalam mengatur sebuah game 
     {
         Random random = new Random();
         shuffelAnimals = animals
@@ -61,33 +61,35 @@
         animalfound = 0;
     }
 
-    protected override void OnInitialized()
+    protected override void OnInitialized() //untuk  memulai game 
     {
         SetUpGame();
     }
 
-    string ClickedAnimal = string.Empty;
+    string ClickedAnimal = string.Empty; //variable untuk mengclick sebuah button
 
-    string clickedAnimalDescription = string.Empty;
+    string clickedAnimalDescription = string.Empty; //untuk membedakan antara variable animal dan deskripsi mencegah kebocoran apabila
+                                                     //di click dua kali akan tidak berhasil
+     
+    int animalfound = 0; //untuk mengecek score dan mereset game jika sudah semua selesai
 
-    int animalfound = 0;
-
-    private void ButtonnClick(string animal , string animaldescription)
+    private void ButtonnClick(string animal , string animaldescription) //untuk button click pada table 
     {
-        if(ClickedAnimal == string.Empty)
+        if(ClickedAnimal == string.Empty) //jika kita mengclcik gambbar yang sama maka akan berhasil 
         {
-            ClickedAnimal = animal;
-            clickedAnimalDescription = animaldescription;
+            ClickedAnimal = animal;   // var animal 
+            clickedAnimalDescription = animaldescription; // var deskripsi animal untuk membedakan animal dan s=deskripsi
         }
-        else if (ClickedAnimal == animal && clickedAnimalDescription !=animaldescription)
+        else if (ClickedAnimal == animal && clickedAnimalDescription !=animaldescription) //jika kita mnegclick animal dan deskrpsi sama 
+                                                                                            //maka tidak aka berasil 
         {
-            shuffelAnimals = shuffelAnimals
-            .Select(item => item.Replace(animal, string.Empty))
+            shuffelAnimals = shuffelAnimals   // maka akan mengacak anial
+            .Select(item => item.Replace(animal, string.Empty))  // yang sudah terselect maka akan menjadi empty dan menambah score 
             .ToList();
-            ClickedAnimal = string.Empty;
+            ClickedAnimal = string.Empty; 
 
-            animalfound++;
-            if (animalfound == 8)
+            animalfound++; // jika sleected berhasil maka akan menambah score 
+            if (animalfound == 8)  // jika score sudah 8 maka akan reset game
             {
                 SetUpGame();
             }
@@ -99,11 +101,6 @@
             
 
         }
-    }
-
-    private void resetgame()
-    {
-        
     }
 }
 
