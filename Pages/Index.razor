@@ -1,0 +1,88 @@
+﻿@page "/"
+
+<style>
+    .container{
+        width : 400px;
+    }
+    button{
+        width:100px;
+        height:100px;
+        font-size:50px;
+    }
+
+</style>
+
+<PageTitle>where game pov</PageTitle>
+
+<div class=" container">
+    <div class="row">
+        @for(var animalNumber =0; animalNumber < shuffelAnimals.Count;animalNumber++)
+        {
+            string animal = shuffelAnimals[animalNumber];
+            string animalDescription = $"Animal #{animalNumber}" ;
+
+            <div class="col-3">
+                <button @onclick="(()=>ButtonnClick(animal,animalDescription))"
+                    type="button" class="btn btn-outline-dark">
+                <h1>@animal</h1>
+                    </button>
+            </div>
+        }
+    </div>
+</div>
+
+@code{
+    List<string> animals = new List<string>()
+    {
+        "🐒","🐒",
+        "🐼","🐼",
+        "🐔","🐔",
+        "🦓","🦓",
+        "🐇","🐇",
+        "🦉","🦉",
+        "🐎","🐎",
+        "🐄","🐄"
+    };
+
+    List<string> shuffelAnimals = new List<string>();
+
+    private void SetUpGame()
+    {
+        Random random = new Random();
+        shuffelAnimals = animals
+        .OrderBy(item => random.Next())
+        .ToList();
+    }
+
+    protected override void OnInitialized()
+    {
+        SetUpGame();
+    }
+
+    string ClickedAnimal = string.Empty;
+
+    string clickedAnimalDescription = string.Empty;
+
+    private void ButtonnClick(string animal , string animaldescription)
+    {
+        if(ClickedAnimal == string.Empty)
+        {
+            ClickedAnimal = animal;
+            clickedAnimalDescription = animaldescription;
+        }
+        else if (ClickedAnimal == animal && clickedAnimalDescription !=animaldescription)
+        {
+            shuffelAnimals = shuffelAnimals
+            .Select(item => item.Replace(animal, string.Empty))
+            .ToList();
+            ClickedAnimal = string.Empty;
+        }
+        else
+        {
+            ClickedAnimal = string.Empty;
+        }
+    }
+}
+
+
+
